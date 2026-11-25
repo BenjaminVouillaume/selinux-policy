@@ -37,6 +37,8 @@ manage_sock_files_pattern(bootupd_t, bootupd_var_run_t, bootupd_var_run_t)
 files_pid_filetrans(bootupd_t, bootupd_var_run_t, { file sock_file })
 
 kernel_dgram_send(bootupd_t)
+kernel_list_proc(bootupd_t)
+kernel_read_proc_files(bootupd_t)
 
 corecmd_exec_bin(bootupd_t)
 
@@ -64,7 +66,7 @@ optional_policy(`
 ')
 
 optional_policy(`
-	auth_read_passwd_file(bootupd_t)
+	auth_read_passwd(bootupd_t)
 ')
 
 optional_policy(`
@@ -86,8 +88,11 @@ optional_policy(`
 ')
 
 optional_policy(`
-	systemd_homed_stream_connect(bootupd_t)
 	systemd_userdbd_stream_connect(bootupd_t)
+')
+
+optional_policy(`
+	systemd_homed_stream_connect(bootupd_t)
 ')
 
 optional_policy(`

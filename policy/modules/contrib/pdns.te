@@ -6,9 +6,9 @@ policy_module(pdns, 1.0.2)
 #
 
 ## <desc>
-## <p>
-## Allow PowerDNS to connect to databases over the network.
-## </p>
+##	<p>
+##	Allow PowerDNS to connect to databases over the network.
+##	</p>
 ## </desc>
 gen_tunable(pdns_can_network_connect_db, false)
 
@@ -52,6 +52,8 @@ corenet_tcp_bind_transproxy_port(pdns_t)
 corenet_tcp_connect_all_ports(pdns_t)
 corenet_udp_bind_all_ports(pdns_t)
 
+fs_getattr_xattr_fs(pdns_t)
+
 manage_dirs_pattern(pdns_t, pdns_var_lib_t, pdns_var_lib_t)
 manage_files_pattern(pdns_t, pdns_var_lib_t, pdns_var_lib_t)
 files_var_lib_filetrans(pdns_t, pdns_var_lib_t, { dir file })
@@ -81,7 +83,6 @@ optional_policy(`
 pdns_read_config(pdns_control_t)
 stream_connect_pattern(pdns_control_t, pdns_var_run_t, pdns_var_run_t, pdns_t)
 
-
 ########################################
 #
 # optional policy
@@ -92,12 +93,12 @@ optional_policy(`
 	mysql_stream_connect(pdns_t)
 	tunable_policy(`pdns_can_network_connect_db',`
 		mysql_tcp_connect(pdns_t)
-        ')
+	')
 ')
 
 optional_policy(`
 	postgresql_stream_connect(pdns_t)
 	tunable_policy(`pdns_can_network_connect_db',`
-                postgresql_tcp_connect(pdns_t)
-        ')
+		postgresql_tcp_connect(pdns_t)
+	')
 ')
